@@ -1,0 +1,167 @@
+Version: 2.0
+Alternatives: &alternatives
+  A1 (Dell XPS 16):
+  A2 (MacBook Air 15):
+  A3 (Lenovo ThinkPad):
+  A4 (HP Envy 16):
+  A5 (Acer Aspire 5):
+
+Goal:
+  name: Elegir mejor portátil para el Grado en Estadística
+  preferences:
+    pairwise:
+      # Potencia de Cálculo (C1) vs. Criterios
+      - [Potencia,Almacenamiento, 1]    
+      - [Potencia,Portabilidad, 3]     
+      - [Potencia,Pantalla, 5]            
+      - [Potencia,Precio, 1/2]      
+      
+      # Almacenamiento y Memoria (C2) vs. Criterios
+      - [Almacenamiento,Portabilidad, 2]
+      - [Almacenamiento,Pantalla, 4]     
+      - [Almacenamiento,Precio, 1/2]  
+      
+      # Portabilidad (C3) vs. Criterios
+      - [Portabilidad,Pantalla, 2]
+      - [Portabilidad,Precio, 1/3] 
+
+      # Pantalla (C4) vs. Criterios
+      - [Pantalla,Precio, 1/5]          
+
+  children:
+    # CRITERIO 1: Potencia de Cálculo
+    Potencia:
+      preferences:
+        pairwise:
+          - [Rendimiento, GPU, 3] 
+      children:
+        Rendimiento:
+          preferences:
+            pairwise:
+              - [A2 (MacBook Air 15), A1 (Dell XPS 16), 1/2]
+              - [A3 (Lenovo ThinkPad), A1 (Dell XPS 16), 1/2]
+              - [A4 (HP Envy 16), A1 (Dell XPS 16), 1]
+              - [A5 (Acer Aspire 5), A1 (Dell XPS 16), 1/4]
+              - [A3 (Lenovo ThinkPad), A2 (MacBook Air 15), 2]
+              - [A4 (HP Envy 16), A2 (MacBook Air 15), 2]
+              - [A5 (Acer Aspire 5), A2 (MacBook Air 15), 1/3]
+              - [A4 (HP Envy 16), A3 (Lenovo ThinkPad), 1]
+              - [A5 (Acer Aspire 5), A3 (Lenovo ThinkPad), 1/3]
+              - [A5 (Acer Aspire 5), A4 (HP Envy 16), 1/4]
+          children: *alternatives
+        GPU:
+          preferences:
+            pairwise:
+              - [A2 (MacBook Air 15), A1 (Dell XPS 16), 1/2]
+              - [A3 (Lenovo ThinkPad), A1 (Dell XPS 16), 1/3]
+              - [A4 (HP Envy 16), A1 (Dell XPS 16), 1]
+              - [A5 (Acer Aspire 5), A1 (Dell XPS 16), 1/5]
+              - [A3 (Lenovo ThinkPad), A2 (MacBook Air 15), 1/2]
+              - [A4 (HP Envy 16), A2 (MacBook Air 15), 2]
+              - [A5 (Acer Aspire 5), A2 (MacBook Air 15), 1/3]
+              - [A4 (HP Envy 16), A3 (Lenovo ThinkPad), 3]
+              - [A5 (Acer Aspire 5), A3 (Lenovo ThinkPad), 1/2]
+              - [A5 (Acer Aspire 5), A4 (HP Envy 16), 1/4]
+          children: *alternatives
+          
+    # CRITERIO 2: Almacenamiento y Memoria
+    Almacenamiento:
+      preferences:
+        pairwise:
+          - [RAM, SSD, 1] 
+      children:
+        RAM:
+          preferences:
+            pairwise:
+              - [A2 (MacBook Air 15), A1 (Dell XPS 16), 1/3]
+              - [A3 (Lenovo ThinkPad), A1 (Dell XPS 16), 1/3]
+              - [A4 (HP Envy 16), A1 (Dell XPS 16), 1/3]
+              - [A5 (Acer Aspire 5), A1 (Dell XPS 16), 1/5]
+              - [A3 (Lenovo ThinkPad), A2 (MacBook Air 15), 1]
+              - [A4 (HP Envy 16), A2 (MacBook Air 15), 1]
+              - [A5 (Acer Aspire 5), A2 (MacBook Air 15), 1/3]
+              - [A4 (HP Envy 16), A3 (Lenovo ThinkPad), 1]
+              - [A5 (Acer Aspire 5), A3 (Lenovo ThinkPad), 1/3]
+              - [A5 (Acer Aspire 5), A4 (HP Envy 16), 1/3]
+          children: *alternatives
+        SSD:
+          preferences:
+            pairwise:
+              - [A2 (MacBook Air 15), A1 (Dell XPS 16), 1/3]
+              - [A3 (Lenovo ThinkPad), A1 (Dell XPS 16), 1/3]
+              - [A4 (HP Envy 16), A1 (Dell XPS 16), 1]
+              - [A5 (Acer Aspire 5), A1 (Dell XPS 16), 1/3]
+              - [A3 (Lenovo ThinkPad), A2 (MacBook Air 15), 1]
+              - [A4 (HP Envy 16), A2 (MacBook Air 15), 3]
+              - [A5 (Acer Aspire 5), A2 (MacBook Air 15), 1]
+              - [A4 (HP Envy 16), A3 (Lenovo ThinkPad), 3]
+              - [A5 (Acer Aspire 5), A3 (Lenovo ThinkPad), 1]
+              - [A5 (Acer Aspire 5), A4 (HP Envy 16), 1/3]
+          children: *alternatives
+      
+    # CRITERIO 3: Portabilidad
+    Portabilidad:
+      preferences:
+        pairwise:
+          - [Batería, Peso, 2] 
+      children:
+        Batería:
+          preferences:
+            pairwise:
+              - [A2 (MacBook Air 15), A1 (Dell XPS 16), 3]
+              - [A3 (Lenovo ThinkPad), A1 (Dell XPS 16), 2]
+              - [A4 (HP Envy 16), A1 (Dell XPS 16), 1/2]
+              - [A5 (Acer Aspire 5), A1 (Dell XPS 16), 1/3]
+              - [A3 (Lenovo ThinkPad), A2 (MacBook Air 15), 1/2]
+              - [A4 (HP Envy 16), A2 (MacBook Air 15), 1/3]
+              - [A5 (Acer Aspire 5), A2 (MacBook Air 15), 1/4]
+              - [A4 (HP Envy 16), A3 (Lenovo ThinkPad), 1/2]
+              - [A5 (Acer Aspire 5), A3 (Lenovo ThinkPad), 1/3]
+              - [A5 (Acer Aspire 5), A4 (HP Envy 16), 1/2]
+          children: *alternatives
+        Peso:
+          preferences:
+            pairwise:
+              - [A2 (MacBook Air 15), A1 (Dell XPS 16), 2]
+              - [A3 (Lenovo ThinkPad), A1 (Dell XPS 16), 3]
+              - [A4 (HP Envy 16), A1 (Dell XPS 16), 2]
+              - [A5 (Acer Aspire 5), A1 (Dell XPS 16), 2]
+              - [A3 (Lenovo ThinkPad), A2 (MacBook Air 15), 1/2]
+              - [A4 (HP Envy 16), A2 (MacBook Air 15), 1/2]
+              - [A5 (Acer Aspire 5), A2 (MacBook Air 15), 1]
+              - [A4 (HP Envy 16), A3 (Lenovo ThinkPad), 1/3]
+              - [A5 (Acer Aspire 5), A3 (Lenovo ThinkPad), 1/2]
+              - [A5 (Acer Aspire 5), A4 (HP Envy 16), 2]
+          children: *alternatives
+      
+    # CRITERIO 4: Pantalla
+    Pantalla:
+      preferences:
+        pairwise:
+          - [A2 (MacBook Air 15), A1 (Dell XPS 16), 1/2]
+          - [A3 (Lenovo ThinkPad), A1 (Dell XPS 16), 1/3]
+          - [A4 (HP Envy 16), A1 (Dell XPS 16), 1]
+          - [A5 (Acer Aspire 5), A1 (Dell XPS 16), 1]
+          - [A3 (Lenovo ThinkPad), A2 (MacBook Air 15), 1/2]
+          - [A4 (HP Envy 16), A2 (MacBook Air 15), 2]
+          - [A5 (Acer Aspire 5), A2 (MacBook Air 15), 2]
+          - [A4 (HP Envy 16), A3 (Lenovo ThinkPad), 3]
+          - [A5 (Acer Aspire 5), A3 (Lenovo ThinkPad), 3]
+          - [A5 (Acer Aspire 5), A4 (HP Envy 16), 1]
+      children: *alternatives 
+
+    # CRITERIO 5: Precio
+    Precio:
+      preferences:
+        pairwise:
+          - [A2 (MacBook Air 15), A1 (Dell XPS 16), 2]
+          - [A3 (Lenovo ThinkPad), A1 (Dell XPS 16), 2]
+          - [A4 (HP Envy 16), A1 (Dell XPS 16), 3]
+          - [A5 (Acer Aspire 5), A1 (Dell XPS 16), 7]
+          - [A3 (Lenovo ThinkPad), A2 (MacBook Air 15), 1]
+          - [A4 (HP Envy 16), A2 (MacBook Air 15), 2]
+          - [A5 (Acer Aspire 5), A2 (MacBook Air 15), 4]
+          - [A4 (HP Envy 16), A3 (Lenovo ThinkPad), 2]
+          - [A5 (Acer Aspire 5), A3 (Lenovo ThinkPad), 4]
+          - [A5 (Acer Aspire 5), A4 (HP Envy 16), 3]
+      children: *alternatives
